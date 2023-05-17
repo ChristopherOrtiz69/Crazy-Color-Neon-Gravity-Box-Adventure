@@ -49,7 +49,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Salta");
             rb.AddForce(Vector3.up*20*num,ForceMode.Impulse);
         }
-    }
+        
+	}
 
     private void OnTriggerEnter(Collider other)
     {
