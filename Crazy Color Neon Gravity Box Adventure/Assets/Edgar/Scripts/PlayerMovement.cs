@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float speedIncreasePerPoint = 0.1f;
     public Transform Camara;
     private Vector3 _posCamara;
-
+    public float limiteX = 5f;
     private void FixedUpdate ()
     {
         
@@ -30,8 +30,19 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Salta");
             rb.AddForce(Vector3.up*10,ForceMode.Impulse);
         }
-        
-	}
+        // Obtener la posición actual del objeto
+        Vector3 posicionActual = transform.position;
+
+        // Obtener el nuevo valor para el eje X (limitado)
+        float nuevoPosX = Mathf.Clamp(posicionActual.x, -limiteX, limiteX);
+
+        // Crear un nuevo Vector3 con el valor limitado en el eje X
+        Vector3 nuevaPosicion = new Vector3(nuevoPosX, posicionActual.y, posicionActual.z);
+
+        // Asignar la nueva posición al objeto
+        transform.position = nuevaPosicion;
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
