@@ -388,6 +388,7 @@ MonoBehaviour:
   horizontalMultiplier: 2
   speedIncreasePerPoint: 0.1
   Camara: {fileID: 866978137}
+  RotPlayer: {fileID: 353184684}
 --- !u!1 &866978134
 GameObject:
   m_ObjectHideFlags: 0

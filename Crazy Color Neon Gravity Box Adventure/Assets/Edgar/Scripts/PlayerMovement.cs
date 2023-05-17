@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-   public float speed = 5;
+    private bool _estaAbajo = true;
+    private int num=1;
+   public float speed = 30;
     [SerializeField] Rigidbody rb;
 
     float horizontalInput;
@@ -13,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public float speedIncreasePerPoint = 0.1f;
     public Transform Camara;
     private Vector3 _posCamara;
+    public float LimiteX = 5;
+    //public Transform RotPlayer;
 
     private void FixedUpdate ()
     {
@@ -24,22 +28,53 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update () {
-        horizontalInput = Input.GetAxis("Horizontal");
+        Vector3 posicionActual = transform.position;
+
+        // Obtener el nuevo valor para el eje X (limitado)
+        float nuevoPosX = Mathf.Clamp(posicionActual.x, -LimiteX, LimiteX);
+
+        // Crear un nuevo Vector3 con el valor limitado en el eje X
+        Vector3 nuevaPosicion = new Vector3(nuevoPosX, posicionActual.y, posicionActual.z);
+
+        // Asignar la nueva posición al objeto
+        transform.position = nuevaPosicion;
+        Movimiento();
+	}
+
+    private void Movimiento()
+    {
+        horizontalInput = num*Input.GetAxis("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Salta");
-            rb.AddForce(Vector3.up*10,ForceMode.Impulse);
+            rb.AddForce(Vector3.up*20*num,ForceMode.Impulse);
         }
-        
-	}
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Cambio"))
         {
-            Physics.gravity*=-1;
-            Camara.Rotate(360,0,0);
-            //Camara.position = new Vector3(_posCamara.x,_posCamara.y-1.5f,_posCamara.z);
+            if (_estaAbajo == true)
+            {
+                Physics.gravity*=-1;
+                Camara.Rotate(180,180,0);
+                Camara.localPosition = new Vector3(_posCamara.x,-1.5f,-5);
+                num=-1;
+                _estaAbajo = false;
+            }
+            else if(_estaAbajo == false)
+            {
+                Physics.gravity*=1;
+                Camara.Rotate(-180,-180,0);
+                Camara.localPosition = new Vector3(_posCamara.x,1.5f,-5);
+                num=1;
+                _estaAbajo = true;
+            }
+            //Physics.gravity*=-1;
+            //RotPlayer.Rotate(0,0,180);
+            //Camara.Rotate(180,180,0);
+            //Camara.localPosition = new Vector3(_posCamara.x,-1.5f,-5);
         }
     }
 }
