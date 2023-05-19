@@ -1531,7 +1531,7 @@ MonoBehaviour:
   LimiteX: 9
   PanelGameOver: {fileID: 56496419}
   PanelWin: {fileID: 1922041302}
-  PanelGame: {fileID: 0}
+  PanelGame: {fileID: 1500896115}
 --- !u!1 &1656109122
 GameObject:
   m_ObjectHideFlags: 0
