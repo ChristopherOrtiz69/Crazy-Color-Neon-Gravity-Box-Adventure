@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cambio
+  - obstaculo
+  - punto
   layers:
   - Default
   - TransparentFX

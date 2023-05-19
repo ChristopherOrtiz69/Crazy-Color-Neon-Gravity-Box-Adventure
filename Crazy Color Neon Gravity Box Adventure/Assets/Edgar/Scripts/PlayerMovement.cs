@@ -17,6 +17,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _posCamara;
     public float LimiteX = 5;
     //public Transform RotPlayer;
+    public GameObject PanelGameOver;
+    public GameObject PanelWin;
+    public GameObject PanelGame;
+
+    private byte _puntaje;
+
+    private void Start()
+    {
+        Time.timeScale = 1;
+        _puntaje = 0;
+    }
 
     private void FixedUpdate ()
     {
@@ -39,6 +50,13 @@ public class PlayerMovement : MonoBehaviour
         // Asignar la nueva posición al objeto
         transform.position = nuevaPosicion;
         Movimiento();
+
+        if (_puntaje == 3)
+        {
+            Time.timeScale = 0;
+            PanelWin.SetActive(true);
+            PanelGame.SetActive(false);
+        }
 	}
 
     private void Movimiento()
@@ -72,10 +90,20 @@ public class PlayerMovement : MonoBehaviour
                 num=1;
                 _estaAbajo = true;
             }
-            //Physics.gravity*=-1;
-            //RotPlayer.Rotate(0,0,180);
-            //Camara.Rotate(180,180,0);
-            //Camara.localPosition = new Vector3(_posCamara.x,-1.5f,-5);
+            
+        }
+
+        if (other.CompareTag("obstaculo"))
+        {
+            Time.timeScale = 0;
+            PanelGameOver.SetActive(true);
+            PanelGame.SetActive(false);
+        }
+
+        if (other.CompareTag("punto"))
+        {
+            _puntaje++;
+            Destroy(other.gameObject);
         }
     }
 }
