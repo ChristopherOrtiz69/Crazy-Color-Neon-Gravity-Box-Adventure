@@ -42,14 +42,14 @@ public class PlayerMovement : MonoBehaviour
     private void Update () {
         Vector3 posicionActual = transform.position;
 
-        // Obtener el nuevo valor para el eje X (limitado)
+       /* // Obtener el nuevo valor para el eje X (limitado)
         float nuevoPosX = Mathf.Clamp(posicionActual.x, -LimiteX, LimiteX);
 
         // Crear un nuevo Vector3 con el valor limitado en el eje X
         Vector3 nuevaPosicion = new Vector3(nuevoPosX, posicionActual.y, posicionActual.z);
 
         // Asignar la nueva posición al objeto
-        transform.position = nuevaPosicion;
+        transform.position = nuevaPosicion;*/
         Movimiento();
 
         if (_puntaje == 3)
