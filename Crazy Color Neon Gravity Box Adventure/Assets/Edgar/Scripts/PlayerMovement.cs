@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private bool _estaAbajo = true;
+    private bool _estaSaltando = false;
     private int num=1;
    public float speed = 30;
     [SerializeField] Rigidbody rb;
@@ -62,13 +63,21 @@ public class PlayerMovement : MonoBehaviour
     private void Movimiento()
     {
         horizontalInput = num*Input.GetAxis("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _estaSaltando == false)
         {
             Debug.Log("Salta");
             rb.AddForce(Vector3.up*20*num,ForceMode.Impulse);
+            StartCoroutine(Esperar());
         }
         
 	}
+
+    IEnumerator Esperar()
+    {
+        _estaSaltando = true;
+        yield return new WaitForSeconds(0.3f);
+        _estaSaltando = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
