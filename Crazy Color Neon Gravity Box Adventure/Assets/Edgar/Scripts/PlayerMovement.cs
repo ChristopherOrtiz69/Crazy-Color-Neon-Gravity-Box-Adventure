@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = nuevaPosicion;*/
         Movimiento();
 
-        if (_puntaje == 3)
+        if (_puntaje == 4)
         {
             Time.timeScale = 0;
             PanelWin.SetActive(true);
