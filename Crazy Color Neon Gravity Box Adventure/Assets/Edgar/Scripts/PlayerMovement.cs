@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float speedIncreasePerPoint = 0.1f;
     public Transform Camara;
     private Vector3 _posCamara;
+    public Animator CambioCamara;
     public float LimiteX = 5;
     //public Transform RotPlayer;
     public GameObject PanelGameOver;
@@ -28,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Time.timeScale = 1;
         _puntaje = 0;
+        
+        CambioCamara.SetBool("empezar",false);
+        
     }
 
     private void FixedUpdate ()
@@ -72,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         
 	}
 
+    
     IEnumerator Esperar()
     {
         _estaSaltando = true;
@@ -86,7 +91,10 @@ public class PlayerMovement : MonoBehaviour
             if (_estaAbajo == true)
             {
                 Physics.gravity*=-1;
-                Camara.Rotate(180,180,0);
+                
+                CambioCamara.SetBool("arriba",true);
+                CambioCamara.SetBool("abajo",false);
+                //Camara.Rotate(180,180,0);
                 Camara.localPosition = new Vector3(_posCamara.x,-1.5f,-5);
                 num=-1;
                 _estaAbajo = false;
@@ -94,7 +102,10 @@ public class PlayerMovement : MonoBehaviour
             else if(_estaAbajo == false)
             {
                 Physics.gravity*=1;
-                Camara.Rotate(-180,-180,0);
+                
+                 CambioCamara.SetBool("arriba",false);
+                CambioCamara.SetBool("abajo",true);
+                //Camara.Rotate(-180,-180,0);
                 Camara.localPosition = new Vector3(_posCamara.x,1.5f,-5);
                 num=1;
                 _estaAbajo = true;
