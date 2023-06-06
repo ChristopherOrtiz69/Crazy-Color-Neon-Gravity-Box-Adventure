@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject PanelGameOver;
     public GameObject PanelWin;
     public GameObject PanelGame;
+    public GameObject PanelInicio;
+    public GameObject PanelLogros;
+    public GameObject PanelPuntosArriba;
 
     private byte _puntaje;
 
@@ -56,11 +59,14 @@ public class PlayerMovement : MonoBehaviour
         transform.position = nuevaPosicion;*/
         Movimiento();
 
-        if (_puntaje == 4)
+        if (_puntaje == 5)
         {
             Time.timeScale = 0;
-            PanelWin.SetActive(true);
+            //PanelWin.SetActive(true);
             PanelGame.SetActive(false);
+            PanelLogros.SetActive(true);
+            PanelInicio.SetActive(false);
+            PanelPuntosArriba.SetActive(false);
         }
 	}
 
@@ -118,12 +124,21 @@ public class PlayerMovement : MonoBehaviour
             Time.timeScale = 0;
             PanelGameOver.SetActive(true);
             PanelGame.SetActive(false);
+            PanelInicio.SetActive(false);
         }
 
         if (other.CompareTag("punto"))
         {
             _puntaje++;
             Destroy(other.gameObject);
+        }
+        if (other.CompareTag("Final"))
+        {
+            Time.timeScale = 0;
+            PanelGame.SetActive(false);
+            PanelInicio.SetActive(false);
+            PanelLogros.SetActive(true);
+            PanelPuntosArriba.SetActive(false);
         }
     }
 }
