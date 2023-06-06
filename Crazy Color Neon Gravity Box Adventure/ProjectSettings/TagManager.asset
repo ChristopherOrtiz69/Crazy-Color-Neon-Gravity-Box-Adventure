@@ -8,6 +8,7 @@ TagManager:
   - obstaculo
   - punto
   - ObjetoReinicio
+  - Final
   layers:
   - Default
   - TransparentFX
